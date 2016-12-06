@@ -61,6 +61,7 @@ var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
 var seconds = 30;
+var questionNum = 4;
 var showAnswer;
 
 
@@ -74,61 +75,71 @@ startScreen();
 
 $(document).on("click", "#start", function() {
 
-	startTrivia(0);
-
+	startTrivia();
 
 });
 
 
-function startTrivia(num) {
+function startTrivia() {
 
 	$("#timer").html("Time Remaining: " + seconds + " seconds")
-	$("#question-holder").html(questions[0]);
-	for (i=0 ; i<answers[0].length ; i++) {
+	$("#holder").html(questions[questionNum]);
+	for (i=0 ; i<answers[questionNum].length ; i++) {
 		var chooseChoice = $("#answer-choices");
-		chooseChoice.append("<button> <h3 class='choice" + i + "'>" + answers[0][i] + "</h3> </button>");
+		chooseChoice.append("<button> <h3 class='choice" + i + "'>" + answers[questionNum][i] + "</h3> </button>");
 	}
+}
+
+function rightAnswer() {
+	correct++
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You got it correct! The answer is " + answers[questionNum]);
+	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
+}
+
+function timeRanOut() {
+	unanswered++;
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You did not answer! The corect answer is " + answers[questionNum]);
+	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
+}
+
+function wrongAnswer() {
+	incorrect++
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You picked incorrectly! The corect answer is " + answers[questionNum]);
+	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
+}
+
+function results() {
+	$("#holder").html("All done, here is your final score sheet!");
+	$("#correct-answer").html("Correct Answers:" + correct);
+	$("#answer-choices").html("Incorrect Answers:" + incorrect);
+	$("#correct-image").html("Unanswered Answers:" + unanswered);
+
+}
+
+function betweenQuestions() {
+	if (questionNum <= 8) {
+		questionNum++;
+		startTrivia();
+
+	} else if (questionNum > 8) {
+		results();
+	}
+}
+
+function reset() {
+	correct = 0;
+	incorrect = 0;
+	unanswered = 0;
+	seconds = 30;
+	questionNum = 0;
+	startTrivia();
 }
 
 
 
-// 		var crystalvalue = $(this).data("crystalvalue");
-// 		yourGuess += crystalvalue;
-// 		$('#guessedScore').html('Your score: ' + yourGuess);
-
-
-
-// function startTrivia() {
-	
-// 	$("#start").remove();
-
-// 	$("#timer").html("Time Remaining: " + seconds + " seconds")
-
-// 	$("#question-holder").html("What's the name of the bear Mowgli meets from The Jungle Book?");
-
-// 	var choices = ["Bagheera", "Baloo", "Akela", "King Loiue"];
-
-// 	for (i=0 ; i<choices.length ; i++) {
-// 		var chooseChoice = $("#answer-choices");
-// 		chooseChoice.append("<button> <h3>" + choices[i] + "</h3> </button>");
-// 	}
-
-// 	function timesOuts() {
-// 		$("#timer").html("Time Remaining: " + seconds + " seconds");
-// 		$("#answer-choices").remove();
-// 		$("#question-holder").html("Out of Time!!");
-// 		$("#correct-answer").html("The corret answer is Baloo");
-// 		$("#correct-image").append("<img src ='https://media.giphy.com/media/yl8OwPJyIIYhi/giphy.gif' alt='Jungle Book' class='image-class'/>");
-
-// 	}
-
-// 	setTimeout(timesOuts, 1000 * 2); //testing timer
-
-	
-
-// }
-
-// $("#start").click(startTrivia);
 
 
 
