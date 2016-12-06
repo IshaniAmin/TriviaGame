@@ -13,6 +13,7 @@ body {
 #wrapper {
 	background-color: white;
 	margin-top: 15px;
+	padding-bottom: 15px;
 }
 
 h1 {
@@ -23,7 +24,6 @@ h1 {
 #start {
 	text-align: center;
 	margin: 0 auto 0 auto;
-	margin-left: 40%;
 	margin-bottom: 20px;
 }
 
@@ -42,4 +42,7 @@ h1 {
 	text-align: center;
 }
 
+.image-class {
+	max-width: 200px
+}
 
