@@ -11,7 +11,7 @@ body {
 }
 
 #wrapper {
-	background-color: white;
+	background-color: skyblue;
 	margin-top: 15px;
 	padding-bottom: 15px;
 }
@@ -21,28 +21,18 @@ h1 {
 	font-family: cursive;
 }
 
+#container {
+	font-size: 20px;
+	text-align: center;
+}
+
 #start {
 	text-align: center;
 	margin: 0 auto 0 auto;
 	margin-bottom: 20px;
 }
 
-#timer {
-	font-size: 20px;
-	text-align: center;
-}
-
-#holder {
-	font-size: 20px;
-	text-align: center;
-}
-
-#correct-answer {
-	font-size: 20px;
-	text-align: center;
-}
-
 .image-class {
-	max-width: 200px
+	max-width: 400px
 }
 

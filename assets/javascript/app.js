@@ -26,7 +26,7 @@ var	answers = [
 		["Bagheera", "Baloo", "Akela", "King Louie" ], 
 		["Prince John", "Prince Charming", "Prince Eric", "Prince Philip"], 
 		["'No Worries'", "'Long Live the King'", "'Lets be Friends'", "'Eat, Sleep, and Drink'" ], 
-		["To marry Jasmine, to be rescued from drowning, and to free the genie", "To marry Jasmine, to put Jafar in jail, and to free the genie", "To become a prince, to be rescued from drowning, and to gain Jasmine’s father’s blessing to marry his daughter", "To become a prince, to be rescued from drowning, and to free the genie"], 
+		["To marry Jasmine, to be rescued from drowning, and to free the genie", "To marry Jasmine, to put Jafar in jail, and to free the genie", "To become a prince, to be rescued from drowning, and to gain Jasmines fathers blessing to marry his daughter", "To become a prince, to be rescued from drowning, and to free the genie"], 
 		["Winter", "Spring", "Summer", "Fall"], 
 		["His 21st Birthday", "His 18th Birthday", "True Love's First Kiss", "His Wedding Day"], 
 		["Jeff", "Robert", "Andy", "George"], 
@@ -45,14 +45,14 @@ var	correctChoice = [
 	]
 
 var images = [
-	"../TriviaGame/assets/images/jungle_book.gif",
-	"../TriviaGame/assets/images/little_mermaid.gif",
-	"../TriviaGame/assets/images/lion_king.gif",
-	"../TriviaGame/assets/images/aladdin.gif",
-	"../TriviaGame/assets/images/olaf_frozen.gif",
-	"../TriviaGame/assets/images/beauty_and_the_beast.gif",
-	"../TriviaGame/assets/images/toy_story.gif",
-	"../TriviaGame/assets/images/tarzan.gif"
+	'../TriviaGame/assets/images/jungle_book.gif',
+	'../TriviaGame/assets/images/little_mermaid.gif',
+	'../TriviaGame/assets/images/lion_king.gif',
+	'../TriviaGame/assets/images/aladdin.gif',
+	'../TriviaGame/assets/images/olaf_frozen.gif',
+	'../TriviaGame/assets/images/beauty_and_the_beast.gif',
+	'../TriviaGame/assets/images/toy_story.gif',
+	'../TriviaGame/assets/images/tarzan.gif'
 ]
 
 
@@ -61,7 +61,7 @@ var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
 var seconds = 30;
-var questionNum = 4;
+var questionNum = 3;
 var showAnswer;
 
 
@@ -72,76 +72,92 @@ startScreen();
 
 
 
-
 $(document).on("click", "#start", function() {
 
 	startTrivia();
+	setTimeout(rightAnswer, 1000 * 3);
 
 });
 
 
 function startTrivia() {
 
+	$("#start").empty();
+	$("#correct-image").empty();
 	$("#timer").html("Time Remaining: " + seconds + " seconds")
 	$("#holder").html(questions[questionNum]);
 	for (i=0 ; i<answers[questionNum].length ; i++) {
 		var chooseChoice = $("#answer-choices");
-		chooseChoice.append("<button> <h3 class='choice" + i + "'>" + answers[questionNum][i] + "</h3> </button>");
+		chooseChoice.append("<h3 class='btn btn-default' class='choice" + i + "'>" + answers[questionNum][i] + "</h3>  <br><br>");
 	}
-}
-
-function rightAnswer() {
-	correct++
-	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You got it correct! The answer is " + answers[questionNum]);
-	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
-}
-
-function timeRanOut() {
-	unanswered++;
-	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You did not answer! The corect answer is " + answers[questionNum]);
-	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
-}
-
-function wrongAnswer() {
-	incorrect++
-	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You picked incorrectly! The corect answer is " + answers[questionNum]);
-	$("#correct-image").html("<img src=" + images[questionNum] + "alt=" + correctChoice[questionNum] + " class='image-class' />")
-}
-
-function results() {
-	$("#holder").html("All done, here is your final score sheet!");
-	$("#correct-answer").html("Correct Answers:" + correct);
-	$("#answer-choices").html("Incorrect Answers:" + incorrect);
-	$("#correct-image").html("Unanswered Answers:" + unanswered);
-
 }
 
 function betweenQuestions() {
 	if (questionNum <= 8) {
 		questionNum++;
-		startTrivia();
-
+		// startTrivia();
 	} else if (questionNum > 8) {
 		results();
+		$('#start-again').html("<h2 class='btn btn-default'> Start Over? </h2>");
 	}
 }
 
+function emptyDivs() {
+	$("#holder").empty();
+	$("#correct-answer").empty();
+	$("#answer-choices").empty();
+	$("#correct-image").empty();
+}
+
+function rightAnswer() {
+	// setTimeout(betweenQuestions, 1000 * 5);
+	emptyDivs();
+	correct++
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You got it correct! The answer is '" + correctChoice[questionNum] + ".'");
+	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	betweenQuestions();
+	// setTimeout(startTrivia, 1000 * 3);
+}
+
+function timeRanOut() {
+	// setTimeout(betweenQuestions, 1000 * 5);
+	emptyDivs();
+	unanswered++;
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You did pick an answer! The corect answer is '" + correctChoice[questionNum] + ".'");
+	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	betweenQuestions();
+	// setTimeout(startTrivia, 1000 * 3);
+}
+
+function wrongAnswer() {
+	// setTimeout(betweenQuestions, 1000 * 5);
+	emptyDivs();
+	incorrect++
+	$("#timer").html("Time remaining: " + seconds + " seconds");
+	$("#holder").html("You picked incorrectly! The corect answer is '" + correctChoice[questionNum] + ".'");
+	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	betweenQuestions();
+	// setTimeout(startTrivia, 1000 * 3);
+}
+
+function results() {
+	$("#holder").html("All done, here is your final score sheet!");
+	$("#final-image").append("<img src ='../TriviaGame/assets/images/giphy.gif'");
+	$("#correct-answers").html("Correct Answers: " + correct);
+	$("#incorrect-answers").html("Incorrect Answers: " + incorrect);
+	$("#unanswers-answers").html("Unanswered Answers: " + unanswered);
+}
+
 function reset() {
+	emptyDivs();
 	correct = 0;
 	incorrect = 0;
 	unanswered = 0;
 	seconds = 30;
 	questionNum = 0;
-	startTrivia();
 }
-
-
-
-
-
 
 
 });
