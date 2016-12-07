@@ -60,9 +60,8 @@ var images = [
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
-var seconds = 30;
-var questionNum = 3;
-var showAnswer;
+var seconds = 20;
+var questionNum = 0;
 
 
 function startScreen() {
@@ -75,7 +74,7 @@ startScreen();
 $(document).on("click", "#start", function() {
 
 	startTrivia();
-	setTimeout(rightAnswer, 1000 * 3);
+	setTimeout(timeRanOut, 1000 * 5);
 
 });
 
@@ -84,21 +83,11 @@ function startTrivia() {
 
 	$("#start").empty();
 	$("#correct-image").empty();
-	$("#timer").html("Time Remaining: " + seconds + " seconds")
+	$("#timer").html("Time Remaining: " + seconds + " seconds.");
 	$("#holder").html(questions[questionNum]);
 	for (i=0 ; i<answers[questionNum].length ; i++) {
 		var chooseChoice = $("#answer-choices");
 		chooseChoice.append("<h3 class='btn btn-default' class='choice" + i + "'>" + answers[questionNum][i] + "</h3>  <br><br>");
-	}
-}
-
-function betweenQuestions() {
-	if (questionNum <= 8) {
-		questionNum++;
-		// startTrivia();
-	} else if (questionNum > 8) {
-		results();
-		$('#start-again').html("<h2 class='btn btn-default'> Start Over? </h2>");
 	}
 }
 
@@ -114,10 +103,10 @@ function rightAnswer() {
 	emptyDivs();
 	correct++
 	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You got it correct! The answer is '" + correctChoice[questionNum] + ".'");
+	$("#holder").html("You got it correct! <br> The answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
 	betweenQuestions();
-	// setTimeout(startTrivia, 1000 * 3);
+	setTimeout(startTrivia, 1000 * 10);
 }
 
 function timeRanOut() {
@@ -125,10 +114,10 @@ function timeRanOut() {
 	emptyDivs();
 	unanswered++;
 	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You did pick an answer! The corect answer is '" + correctChoice[questionNum] + ".'");
+	$("#holder").html("You didn't pick an answer! <br> The correct answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
 	betweenQuestions();
-	// setTimeout(startTrivia, 1000 * 3);
+	setTimeout(startTrivia, 1000 * 10);
 }
 
 function wrongAnswer() {
@@ -136,18 +125,20 @@ function wrongAnswer() {
 	emptyDivs();
 	incorrect++
 	$("#timer").html("Time remaining: " + seconds + " seconds");
-	$("#holder").html("You picked incorrectly! The corect answer is '" + correctChoice[questionNum] + ".'");
+	$("#holder").html("You picked incorrectly! <br> The correct answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
 	betweenQuestions();
-	// setTimeout(startTrivia, 1000 * 3);
+	setTimeout(startTrivia, 1000 * 10);
 }
 
 function results() {
+	emptyDivs();
 	$("#holder").html("All done, here is your final score sheet!");
-	$("#final-image").append("<img src ='../TriviaGame/assets/images/giphy.gif'");
+	$("#final-image").append("<img src ='./assets/images/giphy.gif' class='image-class' />");
 	$("#correct-answers").html("Correct Answers: " + correct);
 	$("#incorrect-answers").html("Incorrect Answers: " + incorrect);
 	$("#unanswers-answers").html("Unanswered Answers: " + unanswered);
+	$('#start-again').html("<h2 class='btn btn-default'> Start Over? </h2>");
 }
 
 function reset() {
@@ -155,7 +146,7 @@ function reset() {
 	correct = 0;
 	incorrect = 0;
 	unanswered = 0;
-	seconds = 30;
+	seconds = 20;
 	questionNum = 0;
 }
 
