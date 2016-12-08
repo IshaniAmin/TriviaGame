@@ -36,7 +36,7 @@ var	answers = [
 var	correctChoice = [
 		"Baloo",
 		"Prince Eric",
-		"No Worries",
+		"'No Worries'",
 		"To become a prince, to be rescued from drowning, and to free the genie",
 		"Summer",
 		"His 21st Birthday",
@@ -73,22 +73,28 @@ startScreen();
 
 $(document).on("click", "#start", function() {
 	startTrivia();
+	setInterval(timeRanOut, 20 * 1000);
 });
 
-$(document).on("click", "#answer-choices", function() {
+$(document).on("click", "#answer-choices .btn", function() {
+
+	var h3Clicked = $(this).text();
+	// console.log(h3Clicked)
 	
-	if ("#answer-choices" == correctChoice[questionNum]) {
+	if (h3Clicked == correctChoice[questionNum]) {
+		// setTimeout(rightAnswer, 3000)
 		rightAnswer();
+		// loadQuestions();
 	} else if (seconds == 0) {
 		timeRanOut();
 	} else {
 		wrongAnswer();
 	}
 
-	if (questionNum == 8) {
-		results();
-	}
+});
 
+$(document).on("click", "#start-again", function() {
+	startOver();
 });
 
 
@@ -101,6 +107,23 @@ function startTrivia() {
 		var chooseChoice = $("#answer-choices");
 		chooseChoice.append("<h3 class='btn btn-default' class='choice' >" + answers[questionNum][i] + "</h3>  <br><br>");
 	}
+	setInterval(secondsCountdown, 1 * 1000);
+}
+
+function secondsCountdown(){
+	seconds--;
+	$("#timer").html("Time Remaining: " + seconds + " seconds");
+}
+
+function loadQuestions(){
+	emptyDivs();
+	questionNum++;
+	$("#holder").html(questions[questionNum]);
+	for (i=0 ; i<answers[questionNum].length ; i++) {
+		var chooseChoice = $("#answer-choices");
+		chooseChoice.append("<h3 class='btn btn-default' class='choice' >" + answers[questionNum][i] + "</h3>  <br><br>");
+	}
+	setInterval(timeRanOut, 20 * 1000);
 }
 
 function emptyDivs() {
@@ -116,6 +139,7 @@ function rightAnswer() {
 	$("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You got it correct! <br> The answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	setTimeout(loadQuestions, 5 * 1000);
 }
 
 function timeRanOut() {
@@ -124,6 +148,7 @@ function timeRanOut() {
 	$("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You didn't pick an answer! <br> The correct answer is '" + correctChoice[questionNum] + ".' <br>");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	setTimeout(loadQuestions, 5 * 1000);
 }
 
 function wrongAnswer() {
@@ -132,6 +157,7 @@ function wrongAnswer() {
 	$("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You picked incorrectly! <br> The correct answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
+	setTimeout(loadQuestions, 5 * 1000);
 }
 
 function results() {
@@ -144,7 +170,7 @@ function results() {
 	$('#start-again').html("<h2 class='btn btn-default'> Start Over? </h2>");
 }
 
-function reset() {
+function startOver() {
 	emptyDivs();
 	correct = 0;
 	incorrect = 0;
@@ -152,6 +178,15 @@ function reset() {
 	seconds = 20;
 	questionNum = 0;
 }
+
+// function reset() {
+// 	emptyDivs();
+// 	correct = 0;
+// 	incorrect = 0;
+// 	unanswered = 0;
+// 	seconds = 20;
+// 	questionNum = 0;
+// }
 
 
 });
