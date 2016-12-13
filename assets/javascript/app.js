@@ -74,10 +74,6 @@ startScreen();
 
 $(document).on("click", "#start", function() {
 	startTrivia();
-	// setInterval(timeRanOut, 20 * 1000);
-	// if (questionNum == 8) {
-	// 	results();
-	// }
 });
 
 $(document).on("click", "#answer-choices .btn", function() {
@@ -86,9 +82,7 @@ $(document).on("click", "#answer-choices .btn", function() {
 	// console.log(h3Clicked)
 	
 	if (h3Clicked == correctChoice[questionNum]) {
-		// setTimeout(rightAnswer, 3000)
 		rightAnswer();
-		// loadQuestions();
 	} else if (h3Clicked !== correctChoice[questionNum]) {
 		wrongAnswer();
 	}
@@ -96,9 +90,7 @@ $(document).on("click", "#answer-choices .btn", function() {
 });
 
 $(document).on("click", "#start-again", function() {
-
 	startOver();
-
 });
 
 
@@ -161,10 +153,8 @@ function rightAnswer() {
 	emptyDivs();
 	seconds = 20;
 	correct++;
-	// $("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You got it correct! <br> The answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	// setTimeout(loadQuestions, 5 * 1000);
 	setTimeout(betweenQues, 5000);
 
 }
@@ -173,21 +163,17 @@ function timeRanOut() {
 	emptyDivs();
 	seconds = 20;
 	unanswered++;
-	// $("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You didn't pick an answer! <br> The correct answer is '" + correctChoice[questionNum] + ".' <br>");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	// setTimeout(loadQuestions, 5 * 1000);
 	setTimeout(betweenQues, 5000);
 }
 
 function wrongAnswer() {
 	emptyDivs();
 	seconds = 20;
-	incorrect++
-	// $("#timer").html("Time remaining: " + seconds + " seconds");
+	incorrect++;
 	$("#holder").html("You picked incorrectly! <br> The correct answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	// setTimeout(loadQuestions, 5 * 1000);
 	setTimeout(betweenQues, 5000);
 }
 
