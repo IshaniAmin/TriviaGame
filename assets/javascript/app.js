@@ -45,7 +45,7 @@ var	correctChoice = [
 	]
 
 var images = [
-	'../TriviaGame/assets/images/jungle_book.gif',
+	'../assets/images/jungle_book.gif',
 	'../TriviaGame/assets/images/little_mermaid.gif',
 	'../TriviaGame/assets/images/lion_king.gif',
 	'../TriviaGame/assets/images/aladdin.gif',
