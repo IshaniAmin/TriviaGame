@@ -61,6 +61,7 @@ var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
 var seconds = 20;
+var timeCountdown;
 var questionNum = 0;
 
 
@@ -73,7 +74,10 @@ startScreen();
 
 $(document).on("click", "#start", function() {
 	startTrivia();
-	setInterval(timeRanOut, 20 * 1000);
+	// setInterval(timeRanOut, 20 * 1000);
+	// if (questionNum == 8) {
+	// 	results();
+	// }
 });
 
 $(document).on("click", "#answer-choices .btn", function() {
@@ -85,79 +89,106 @@ $(document).on("click", "#answer-choices .btn", function() {
 		// setTimeout(rightAnswer, 3000)
 		rightAnswer();
 		// loadQuestions();
-	} else if (seconds == 0) {
-		timeRanOut();
-	} else {
+	} else if (h3Clicked !== correctChoice[questionNum]) {
 		wrongAnswer();
 	}
 
 });
 
 $(document).on("click", "#start-again", function() {
+
 	startOver();
+
 });
 
 
 function startTrivia() {
 
 	$("#start").empty();
-	$("#timer").html("Time Remaining: " + seconds + " seconds");
 	$("#holder").html(questions[questionNum]);
 	for (i=0 ; i<answers[questionNum].length ; i++) {
 		var chooseChoice = $("#answer-choices");
 		chooseChoice.append("<h3 class='btn btn-default' class='choice' >" + answers[questionNum][i] + "</h3>  <br><br>");
 	}
-	setInterval(secondsCountdown, 1 * 1000);
+	setInterval(secondsCountdown, 1000);
 }
 
 function secondsCountdown(){
-	seconds--;
 	$("#timer").html("Time Remaining: " + seconds + " seconds");
+	if (seconds == 0) {
+		timeRanOut();
+	} else if (seconds > 0) {
+		seconds--;
+	}
+
 }
 
 function loadQuestions(){
+	seconds = 20;
 	emptyDivs();
-	questionNum++;
 	$("#holder").html(questions[questionNum]);
 	for (i=0 ; i<answers[questionNum].length ; i++) {
 		var chooseChoice = $("#answer-choices");
 		chooseChoice.append("<h3 class='btn btn-default' class='choice' >" + answers[questionNum][i] + "</h3>  <br><br>");
 	}
-	setInterval(timeRanOut, 20 * 1000);
+}
+
+function betweenQues() {
+	if (questionNum < 7) {
+		questionNum++;
+		loadQuestions();
+		seconds = 20;
+	} else {
+		results();
+	}
 }
 
 function emptyDivs() {
+	$("#timer").empty();
 	$("#holder").empty();
+	$("#final-image").empty();
 	$("#correct-answer").empty();
 	$("#answer-choices").empty();
 	$("#correct-image").empty();
+	$("#correct-answers").empty();
+	$("#incorrect-answers").empty();
+	$("#unanswers-answers").empty();
+	$("#start-again").empty();
+
 }
 
 function rightAnswer() {
 	emptyDivs();
+	seconds = 20;
 	correct++;
-	$("#timer").html("Time remaining: " + seconds + " seconds");
+	// $("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You got it correct! <br> The answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	setTimeout(loadQuestions, 5 * 1000);
+	// setTimeout(loadQuestions, 5 * 1000);
+	setTimeout(betweenQues, 5000);
+
 }
 
 function timeRanOut() {
 	emptyDivs();
+	seconds = 20;
 	unanswered++;
-	$("#timer").html("Time remaining: " + seconds + " seconds");
+	// $("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You didn't pick an answer! <br> The correct answer is '" + correctChoice[questionNum] + ".' <br>");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	setTimeout(loadQuestions, 5 * 1000);
+	// setTimeout(loadQuestions, 5 * 1000);
+	setTimeout(betweenQues, 5000);
 }
 
 function wrongAnswer() {
 	emptyDivs();
+	seconds = 20;
 	incorrect++
-	$("#timer").html("Time remaining: " + seconds + " seconds");
+	// $("#timer").html("Time remaining: " + seconds + " seconds");
 	$("#holder").html("You picked incorrectly! <br> The correct answer is '" + correctChoice[questionNum] + ".'");
 	$("#correct-image").html("<img src =" + images[questionNum] + " class='image-class' />");
-	setTimeout(loadQuestions, 5 * 1000);
+	// setTimeout(loadQuestions, 5 * 1000);
+	setTimeout(betweenQues, 5000);
 }
 
 function results() {
@@ -177,16 +208,8 @@ function startOver() {
 	unanswered = 0;
 	seconds = 20;
 	questionNum = 0;
+	startTrivia();
+	secondsCountdown();
 }
-
-// function reset() {
-// 	emptyDivs();
-// 	correct = 0;
-// 	incorrect = 0;
-// 	unanswered = 0;
-// 	seconds = 20;
-// 	questionNum = 0;
-// }
-
 
 });
