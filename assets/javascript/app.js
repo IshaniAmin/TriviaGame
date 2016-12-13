@@ -46,13 +46,13 @@ var	correctChoice = [
 
 var images = [
 	'../assets/images/jungle_book.gif',
-	'../TriviaGame/assets/images/little_mermaid.gif',
-	'../TriviaGame/assets/images/lion_king.gif',
-	'../TriviaGame/assets/images/aladdin.gif',
-	'../TriviaGame/assets/images/olaf_frozen.gif',
-	'../TriviaGame/assets/images/beauty_and_the_beast.gif',
-	'../TriviaGame/assets/images/toy_story.gif',
-	'../TriviaGame/assets/images/tarzan.gif'
+	'../assets/images/little_mermaid.gif',
+	'../assets/images/lion_king.gif',
+	'../assets/images/aladdin.gif',
+	'../assets/images/olaf_frozen.gif',
+	'../assets/images/beauty_and_the_beast.gif',
+	'../assets/images/toy_story.gif',
+	'../assets/images/tarzan.gif'
 ]
 
 
@@ -194,7 +194,7 @@ function wrongAnswer() {
 function results() {
 	emptyDivs();
 	$("#holder").html("All done, here is your final score sheet!");
-	$("#final-image").append("<img src ='./assets/images/giphy.gif' class='image-class' />");
+	$("#final-image").append("<img src ='../assets/images/giphy.gif' class='image-class' />");
 	$("#correct-answers").html("Correct Answers: " + correct);
 	$("#incorrect-answers").html("Incorrect Answers: " + incorrect);
 	$("#unanswers-answers").html("Unanswered Answers: " + unanswered);
