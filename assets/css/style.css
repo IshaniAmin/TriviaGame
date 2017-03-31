@@ -9,6 +9,14 @@ body {
 	width: 100%;
 }
 
+h1, h2 {
+	text-align: center;
+}
+
+#trivia {
+	text-align: center;
+}
+
 #wrapper {
 	background-color: skyblue;
 	margin-top: 15px;
@@ -16,52 +24,10 @@ body {
 	font-family: 'Coming Soon', cursive;
 }
 
-h1 {
-	text-align: center;
+button {
+	width: 20%;
+	height: 10%;
 }
 
-#container {
-	font-size: 20px;
-	text-align: center;
-}
-
-#start {
-	text-align: center;
-	margin: 0 auto 0 auto;
-	margin-bottom: 20px;
-}
-
-#timer {
-	font-size: 25px;
-}
-
-#holder {
-	font-size: 25px;
-}
-
-#correct-answer {
-	font-size: 25px;
-}
-
-#answer-choices {
-	font-size: 25px;
-}
-
-
-#correct-answers {
-	font-size: 25px;
-}
-
-#incorrect-answers {
-	font-size: 25px;
-}
-
-#unanswers-answers {
-	font-size: 25px;
-}
-
-.image-class {
-	max-width: 400px
-}
 
 
